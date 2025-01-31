@@ -25,9 +25,9 @@ The following section describes the necessary steps to develop and execute your 
         - checkpoints/  *#checkpoints files*
      
 ## File Description
- calculations - custom_entanglements.py - Sequence_RX_CNOTs
- data - medmnist.py
- encoders - custom_higher_order_encoder.py
- settings - settings_2D_medMNIST.yaml 
+ - calculations - custom_entanglements.py - Sequence_RX_CNOTs
+ - data - medmnist.py
+ - encoders - custom_higher_order_encoder.py
+ - settings - settings_2D_medMNIST.yaml 
 
 This Repo is still under development.
