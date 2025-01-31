@@ -1,0 +1,110 @@
+#DATASETS:
+#- mnist
+#    - Preencoded
+#    mnist_dataset_preencoded(params=settings.PARAMS, mnist_path="/home/maureen/PycharmProjects/qc-diag/mnist", path="/home/maureen/PycharmProjects/qc-diag/mnist")
+#    - Not Preencoded
+#    mnist_dataset(path="/home/maureen/PycharmProjects/qc-diag/mnist")
+#- medical
+#    medical_dataset(csv_file="malignancy.csv", root_dir="/data/datasets/medical_datasets/LIDC-IDRI/preprocessed", transform=min_max_lung, do_3D_conv=PARAMS["do_3D_conv"])
+#MODELS:
+#- Hybrid for MNIST
+#    - HybridModel_MNIST_one_conv
+#    - HybridModel_MNIST_two_conv
+#- Hybrid for LIDC-IDRI
+#    - for 3D convolutions: HybridModel_medical_3D_conv_middle(PARAMS, quantum=True)
+#    - for 2D convolutions: HybridModel_medical_2D(PARAMS, quantum=True)
+
+# define which GPU to use
+CUDA_VISIBLE_DEVICES: "3"
+
+### Define the model settings ###
+
+PARAMS:
+    epochs_num: 10
+    do_3D_conv: False
+    lr_classical: 0.001
+    lr_quantum: 0.001
+    lr: 0.001
+    batch_size: 16
+    save_weights: True
+    ancilla_qbit: 0
+    # CNN seeds (used for both classical and quantum setup)
+    #weights_seed: 8
+    #torch_seed: 8
+    #np_seed: 8
+    #random_seed: 8
+    all_seeds: 1
+
+    noise_name: amplitudeDamping
+
+    magnitude: 0.05 # [0.03, 0.03]
+    shotnum: 1024
+    # QCNN-related settings
+
+    # Circuit setup
+    circuit_layers: 1
+    n_rotations: 4
+    filter_length: 2
+    stride: 2
+    device: lightning.qubit
+    data_reuploading: False
+    diff_method: adjoint # Adjoint method much faster than default, but only available for simulation
+
+    # Encoding
+    encoder: Custom_Higher_Order_Encoder
+    encoder_args: {}
+
+    preencoded: False
+
+    # Calculations and measurements
+    calculation: Sequence_mid_measure # other choices e.g. Sequence_CNOTs
+
+    # Calculation for custom circuit. If `wires_to_act_on` is empty, gates are applied to all available qubits
+    # Calculation args for random circuit use a seed for circuit construction
+    # calculation_args:
+    #   wires_to_act_on: []
+    calculation_args:
+        wires_to_act_on: []
+        #seed: 10
+    measurement: None  #UniformGateMeasurements
+    measurement_args: {}
+    trainable: True
+    n_out_channels: 4 # change 
+    sum_over_kernel: True
+
+    # Evaluations
+    calculate_expressibility: False
+    calculate_entanglement: False
+    calculate_effective_dim: False
+
+    # Rotation factor in higher order encoding
+    rotation_factor: 0.785
+
+save_weights: True
+
+# Choose a dataset by its identifier. Available options are {mnist, med_mnist, medical}.
+# Docker: you can pass the DATASET directory with the .env file
+DATASET: med_mnist
+
+QUANTUM: True
+
+# Choose a ML model by its identifier. Available options are {mnist_one_conv, mnist_two_conv, medical_2D, medical_3D_conv_middle}.
+# mnist_one_conv <=> HybridModel_MNIST_one_conv
+# mnist_two_conv <=> HybridModel_MNIST_two_conv
+# mnist_two_conv_middle <=> HybridModel_MNIST_two_conv_middle
+# mnist_one_conv_multiOut <=> HybridModel_MNIST_one_conv_multiOut
+# mnist_one_conv_multiOut_multipass <=>  HybridModel_MNIST_one_conv_multiOut_multipass
+# medical_2D <=> HybridModel_medical_2D
+# medical_3D <=> HybridModel_medical_3D
+# medical_3D_conv_middle <=> HybridModel_medical_3D_conv_middle
+MODEL: mnist_one_conv_multiOut
+
+# Directory to save the experiments
+SAVE_DIR: /data/julie.maria.raju/qc-diag/results/mid-circuit_copy
+# SAVE_DIR = os.path.join(os.environ['DATA'], 'results')
+# Docker: same here
+CHECKPOINT_DIR: None 
+# Folder name to save the experiments
+SAVE_NAME: wo_noise
+# Experiment name is changed automatically
+EXP_NAME: 

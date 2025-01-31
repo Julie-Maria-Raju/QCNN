@@ -1,0 +1,50 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+*.DS_Store
+
+# Virtual environment
+venv/
+env/
+*.env
+*.venv
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
+
+# Python packaging
+dist/
+build/
+*.egg-info/
+
+# IDE and editor files
+.vscode/
+*.swp
+*.swo
+.idea/
+*.iml
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
+# Machine learning & training artifacts
+*.ckpt
+*.pth
+*.h5
+*.pt
+
+# Quantum computing and simulation outputs
+*.qasm
+*.pkl
+*.npz
+*.csv
+
+# Git-specific
+.gitignore
