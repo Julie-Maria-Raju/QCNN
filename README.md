@@ -23,3 +23,11 @@ The following section describes the necessary steps to develop and execute your 
         - train_val_curves.png  *#png image of the training and validation train_val_curves*
         - progress.csv  *#csv summary of training and validation progress*
         - checkpoints/  *#checkpoints files*
+     
+## File Description
+ calculations - custom_entanglements.py - Sequence_RX_CNOTs
+ data - medmnist.py
+ encoders - custom_higher_order_encoder.py
+ settings - settings_2D_medMNIST.yaml 
+
+This Repo is still under development.
